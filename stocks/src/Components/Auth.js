@@ -1,8 +1,14 @@
 
 import React, { useState } from "react"
 import { useNavigate } from 'react-router-dom';
+import {useSelector , useDispatch} from "react-redux";
+import { setUserName } from "../features/userInfo/userInfoSlice";
+import axios from 'axios';
+
 
 export default function (props) {
+  const userId=useSelector((state) => state.userInfo.userId);
+  const dispatch=useDispatch();
   const [authMode, setAuthMode] = useState("signin")
   const [userData, setUserData] = useState({
     emailId:"",
@@ -12,29 +18,53 @@ export default function (props) {
   const [loginStatusMessage, setLoginStatusMessage] = useState("")
 
   function handleLogin() {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ 
-          "email" : userData.emailId,
-          "password" : userData.password
-       })
-    };
-     fetch('http://192.168.0.48:8080/login', requestOptions)
-        .then(response => {
-          if(response.ok)
-            navigate('/dashboard')
-          else{
-            setUserData({
-              emailId:"",
-              password:""
-            })
-            setLoginStatusMessage("Incorrect Credentials.")
-          }
-            
-        })
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers: { 
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({ 
+    //       "email" : userData.emailId,
+    //       "password" : userData.password
+    //    })
+    // };
+    const body ={
+        "email" : userData.emailId,
+        "password" : userData.password
+    }
+    axios.post('http://192.168.0.35:8080/login',body)
+    .then(res => {
+      console.log(res.data.user.id);
+      if(res.status==200){
+        navigate('/dashboard')
+        dispatch(setUserName(res.data.user.id))
+      }
+    })
+    .catch(() =>{
+      setUserData({
+        emailId:"",
+        password:""
+      })
+      setLoginStatusMessage("Incorrect Credentials.")
+    })
+    //  fetch('http://192.168.0.35:8080/login', requestOptions)
+    //   .then(response => {
+    //     if(response.ok){
+    //       console.log(response.json())
+    //       navigate('/dashboard')
+    //       //dispatch(setUserName())
+    //     }
+    //     else{
+    //       setUserData({
+    //         emailId:"",
+    //         password:""
+    //       })
+    //       setLoginStatusMessage("Incorrect Credentials.")
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   });
   }
 
   const changeAuthMode = () => {
@@ -78,7 +108,7 @@ export default function (props) {
           "fullName": newUserData.fullName
        })
     };
-     fetch('http://192.168.0.48:8080/user', requestOptions)
+     fetch('http://192.168.0.35:8080/user', requestOptions)
         .then(response => {
           if(response.ok){
             setAuthMode("signin")

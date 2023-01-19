@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Auth from "./Components/Auth"
 import Dashboard from "./Components/Dashboard"
 
-
 function App() {
   return (
     <div>
