@@ -19,7 +19,8 @@
   border-radius: 8px;
   background-color: white;
 }
-.tablecontainer{
+.tableContainer{
+  border: solid 5px #F8F8F8;
   margin: 20px;
 }
 
