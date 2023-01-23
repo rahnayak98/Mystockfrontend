@@ -182,3 +182,7 @@ h2{
       text-align: center;
   }
 }
+
+.stockticker {
+  max-height: 15px;
+}

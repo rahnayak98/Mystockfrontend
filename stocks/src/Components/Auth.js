@@ -18,16 +18,6 @@ export default function (props) {
   const [loginStatusMessage, setLoginStatusMessage] = useState("")
 
   function handleLogin() {
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ 
-    //       "email" : userData.emailId,
-    //       "password" : userData.password
-    //    })
-    // };
     const body ={
         "email" : userData.emailId,
         "password" : userData.password
@@ -35,9 +25,9 @@ export default function (props) {
     axios.post('http://192.168.0.35:8080/login',body)
     .then(res => {
       console.log(res.data.user.id);
-      if(res.status==200){
+      if(res.status===200){
         navigate('/dashboard')
-        dispatch(setUserName(res.data.user.id))
+        dispatch(setUserName(res.data.user.email))
       }
     })
     .catch(() =>{
@@ -47,24 +37,6 @@ export default function (props) {
       })
       setLoginStatusMessage("Incorrect Credentials.")
     })
-    //  fetch('http://192.168.0.35:8080/login', requestOptions)
-    //   .then(response => {
-    //     if(response.ok){
-    //       console.log(response.json())
-    //       navigate('/dashboard')
-    //       //dispatch(setUserName())
-    //     }
-    //     else{
-    //       setUserData({
-    //         emailId:"",
-    //         password:""
-    //       })
-    //       setLoginStatusMessage("Incorrect Credentials.")
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   });
   }
 
   const changeAuthMode = () => {
