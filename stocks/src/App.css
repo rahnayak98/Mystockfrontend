@@ -123,6 +123,7 @@ h2{
   .fl-table {
       display: block;
       width: 100%;
+      max-height: 500px;
   }
   .table-wrapper:before{
       content: "Scroll horizontally >";
@@ -185,4 +186,10 @@ h2{
 
 .stockticker {
   max-height: 15px;
+}
+
+.loadingMsg{
+  padding: 50px;
+  text-align: center; 
+  font-size:x-large;
 }

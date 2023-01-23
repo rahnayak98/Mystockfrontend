@@ -3,21 +3,7 @@ import { useParams } from 'react-router-dom'
 
 
 const Stock = (props) => {
-  if(props.name==="NA")
-    return (
-      <React.Fragment>
-          <tr>
-            <td>Loading</td>
-            <td>Loading</td>
-            <td>Loading</td>
-            <td>Loading</td>
-            <td>Loading</td>
-            <td>Loading</td>
-            <td>Loading</td>
-          </tr>
-      </React.Fragment>
-    )
-  else{
+  
     let marketCap= props.availableUnit*props.currentPrice
     let stockTicker=props.previousPrice>props.currentPrice?"/Down.png":"/Up.png"
     return (
@@ -36,6 +22,6 @@ const Stock = (props) => {
       </React.Fragment>
     )
   }
-}
+
 
 export default Stock

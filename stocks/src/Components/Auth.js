@@ -1,4 +1,3 @@
-
 import React, { useState } from "react"
 import { useNavigate } from 'react-router-dom';
 import {useSelector , useDispatch} from "react-redux";
@@ -24,10 +23,16 @@ export default function (props) {
     }
     axios.post('http://192.168.0.35:8080/login',body)
     .then(res => {
-      console.log(res.data.user.id);
+      //console.log(res.data.user.id);
       if(res.status===200){
-        navigate('/dashboard')
-        dispatch(setUserName(res.data.user.email))
+        if(res.data.user.type==="EXTERNAL_USER"){
+          navigate('/dashboard')
+          dispatch(setUserName(res.data.user.email))
+        }
+        else{
+          navigate('/adminDashboard')
+          dispatch(setUserName(res.data.user.email))
+        }
       }
     })
     .catch(() =>{
