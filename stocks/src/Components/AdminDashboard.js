@@ -1,8 +1,12 @@
 import React from 'react'
+import AdminUtilities from './Adminutilities'
 
 const AdminDashboard = () => {
   return (
-    <div>AdminDashboard</div>
+    <div>
+
+      <AdminUtilities/>
+    </div>
   )
 }
 

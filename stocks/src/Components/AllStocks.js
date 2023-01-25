@@ -1,5 +1,6 @@
 import React from 'react'
 import Stock from "./Stock"
+import {useSelector , useDispatch} from "react-redux";
 
 
 const AllStocks = () => {
@@ -22,6 +23,7 @@ const AllStocks = () => {
             />
         )
     })  
+    const userId=useSelector((state) => state.userInfo.userId);
 
     React.useEffect(() => {
         const fetchStockUrl="http://192.168.0.35:8080/stock/all"        
@@ -32,7 +34,7 @@ const AllStocks = () => {
             //console.log(allStockData)
         }
         getStocks(fetchStockUrl)
-    }, [])
+    }, [userId])
     
     if(allStockData[0].stockId==="NA"){    
         return (
