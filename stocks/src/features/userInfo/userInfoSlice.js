@@ -9,7 +9,10 @@ const initialState={
         "currentPrice": -1,
         "dayLow": -1,
         "dayHigh": -1,
-        "previousPrice": -1
+        "previousPrice": -1,
+        "totalAmount":-1,
+        "totalUnit":-1
+
     }],
     allStockList:[{
         "stockId": "NA",

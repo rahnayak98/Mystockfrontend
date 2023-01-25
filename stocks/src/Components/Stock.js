@@ -10,6 +10,8 @@ const Stock = (props) => {
       <React.Fragment>
           <tr>
             <td>{props.name}</td>
+            <td>{props.totalAmount}</td>
+            <td>{props.totalUnit}</td>
             <td>{props.availableUnit}</td>
             <td>{props.currentPrice}</td>
             <td>{props.dayLow}</td>

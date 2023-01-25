@@ -10,15 +10,6 @@ const UserStocks = () => {
     const userId=useSelector((state) => state.userInfo.userId);  
     const allStockData=useSelector((state) => state.userInfo.userStockList);
 
-    // const [allStockData, setallStockData] = React.useState([{
-    //     "stockId": "NA",
-    //     "name": "NA",
-    //     "availableUnit": -1,
-    //     "currentPrice": -1,
-    //     "dayLow": -1,
-    //     "dayHigh": -1,
-    //     "previousPrice": -1
-    // }])
 
     const myStocks = allStockData.map(item => {
         return (
@@ -36,7 +27,10 @@ const UserStocks = () => {
             const data = await res.json()
             var array = [];
             data.forEach(element => {
-                array.push(element.stock)
+                array.push({...element.stock, 
+                    "totalAmount":element.totalAmount,
+                    "totalUnit":element.totalUnit
+                })
             });
             if(array.length!==0)
             //setallStockData(prevState => array)
@@ -60,6 +54,8 @@ const UserStocks = () => {
                 <table className='fl-table'>
                     <tr className='fl-table tbody tr'>
                         <th >Stock Name</th>
+                        <th>Total Amount</th>
+                        <th>Total Unit</th>
                         <th>Available unit</th>
                         <th>Current Price</th>
                         <th>Day low</th>
