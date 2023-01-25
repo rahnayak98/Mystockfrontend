@@ -4,7 +4,7 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import {useSelector , useDispatch} from "react-redux";
 import axios from 'axios';
-import { setUserName } from "../features/userInfo/userInfoSlice";
+import { setUserName, setUserStockList ,setAllStockList } from "../features/userInfo/userInfoSlice";
 
 
 
@@ -39,7 +39,24 @@ const Buystock = (props) => {
           })
           alert("Stock bought successfully")
           dispatch(setUserName(userId))
-
+          dispatch(setUserStockList([{
+                "stockId": "NA",
+                "name": "NA",
+                "availableUnit": -1,
+                "currentPrice": -1,
+                "dayLow": -1,
+                "dayHigh": -1,
+                "previousPrice": -1
+            }]))
+            dispatch(setAllStockList([{
+              "stockId": "NA",
+              "name": "NA",
+              "availableUnit": -1,
+              "currentPrice": -1,
+              "dayLow": -1,
+              "dayHigh": -1,
+              "previousPrice": -1
+          }]))
         })
         .catch(() =>{
           alert("Error - make sure that you have sufficient account balance, and the stock ID is correct")

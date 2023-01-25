@@ -1,21 +1,24 @@
 import React from 'react'
 import Stock from "./Stock"
 import {useSelector , useDispatch} from "react-redux";
+import { setUserStockList } from '../features/userInfo/userInfoSlice';
 
 
 const UserStocks = () => {
-    
-    const userId=useSelector((state) => state.userInfo.userId);  
+    const dispatch=useDispatch();
 
-    const [allStockData, setallStockData] = React.useState([{
-        "stockId": "NA",
-        "name": "NA",
-        "availableUnit": -1,
-        "currentPrice": -1,
-        "dayLow": -1,
-        "dayHigh": -1,
-        "previousPrice": -1
-    }])
+    const userId=useSelector((state) => state.userInfo.userId);  
+    const allStockData=useSelector((state) => state.userInfo.userStockList);
+
+    // const [allStockData, setallStockData] = React.useState([{
+    //     "stockId": "NA",
+    //     "name": "NA",
+    //     "availableUnit": -1,
+    //     "currentPrice": -1,
+    //     "dayLow": -1,
+    //     "dayHigh": -1,
+    //     "previousPrice": -1
+    // }])
 
     const myStocks = allStockData.map(item => {
         return (
@@ -35,11 +38,14 @@ const UserStocks = () => {
             data.forEach(element => {
                 array.push(element.stock)
             });
-            setallStockData(prevState => array)
+            if(array.length!==0)
+            //setallStockData(prevState => array)
+            dispatch(setUserStockList(array))
+
             //console.log(allStockData)
         }
         getStocks(fetchStockUrl)
-    }, [userId])
+    }, [dispatch, userId, allStockData ])
     
     if(allStockData[0].stockId==="NA"){    
         return (
