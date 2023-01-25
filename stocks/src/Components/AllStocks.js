@@ -1,29 +1,17 @@
 import React from 'react'
-import Stock from "./Stock"
+import AllStock from "./AllStock"
 import {useSelector , useDispatch} from "react-redux";
 import { setAllStockList } from '../features/userInfo/userInfoSlice';
 
 
 const AllStocks = () => {
 
-    // const [allStockData, setallStockData] = React.useState([{
-    //     "stockId": "NA",
-    //     "name": "NA",
-    //     "availableUnit": -1,
-    //     "currentPrice": -1,
-    //     "dayLow": -1,
-    //     "dayHigh": -1,
-    //     "previousPrice": -1
-    // }])
-
-
     const dispatch=useDispatch();
 
-    const userId=useSelector((state) => state.userInfo.userId);
     const allStockData=useSelector((state) => state.userInfo.allStockList);
     const myStocks = allStockData.map(item => {
         return (
-            <Stock
+            <AllStock
                 key={item.stockId}
                 {...item} 
             />
@@ -39,7 +27,7 @@ const AllStocks = () => {
             //console.log(allStockData)
         }
         getStocks(fetchStockUrl)
-    }, [dispatch, userId,allStockData ])
+    },[dispatch,allStockData])
     
     if(allStockData[0].stockId==="NA"){    
         return (

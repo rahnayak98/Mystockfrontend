@@ -8,10 +8,10 @@ const UserStocks = () => {
     const dispatch=useDispatch();
 
     const userId=useSelector((state) => state.userInfo.userId);  
-    const allStockData=useSelector((state) => state.userInfo.userStockList);
+    const allUserStockData=useSelector((state) => state.userInfo.userStockList);
 
 
-    const myStocks = allStockData.map(item => {
+    const myStocks = allUserStockData.map(item => {
         return (
             <Stock
                 key={item.stockId}
@@ -27,10 +27,13 @@ const UserStocks = () => {
             const data = await res.json()
             var array = [];
             data.forEach(element => {
-                array.push({...element.stock, 
-                    "totalAmount":element.totalAmount,
-                    "totalUnit":element.totalUnit
-                })
+                console.log(element.stock.totalAmount)
+                // if(element.stock.totalAmount>0){
+                    array.push({...element.stock, 
+                        "totalAmount":element.totalAmount,
+                        "totalUnit":element.totalUnit
+                    })
+                // }
             });
             if(array.length!==0)
             //setallStockData(prevState => array)
@@ -39,9 +42,9 @@ const UserStocks = () => {
             //console.log(allStockData)
         }
         getStocks(fetchStockUrl)
-    }, [dispatch, userId, allStockData ])
+    }, [userId,dispatch,allUserStockData])
     
-    if(allStockData[0].stockId==="NA"){    
+    if(allUserStockData[0].stockId==="NA"){    
         return (
             <div>
                 <div className='loadingMsg'>Loading . . .</div>
